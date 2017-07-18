@@ -38,19 +38,28 @@
                         </li>
                     </ul>
                 </div>
-                <div class="dialog-box"></div>
+                <div class="dialog-box">
+                    <message></message>
+                    <input-box></input-box>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import message from '../../components/chatRoom/Message';
+import inputBox from '../../components/chatRoom/Input';
 export default {
     name: 'chatRoom',
     data () {
         return {
             isActive: true
         }
+    },
+    components: {
+        message,
+        inputBox
     }
 }
 </script>
@@ -60,6 +69,7 @@ export default {
 div {
     box-sizing: border-box;
 }
+// 头像样式
 .avator {
     width: 70px;
     height: 70px;
@@ -69,6 +79,7 @@ div {
     // background-color: #fff;
     vertical-align: middle;
 }
+// 介绍性文字信息样式
 .message-text {
     display: inline-block;
     color: #ddd;
@@ -79,6 +90,7 @@ div {
         margin: 13px 0;
     }
 }
+
 .chat-room-container {
     width: 100%;
     height: 100%;
@@ -157,6 +169,11 @@ div {
             background-color: rgba(255, 255, 255, 0.1);
         }
     }
+}
+
+.dialog-box {
+    display: flex;
+    flex-direction: column;
 }
 </style>
 

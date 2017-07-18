@@ -11,6 +11,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import './styles/reset.scss';
 @import './styles/index.scss';
 #app {
   width: 100%;
