@@ -17,6 +17,13 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    // 0-off, 1-warn, 2-error
+    // 缩进使用两个空格
+    'indent': 'off',
+    // 句尾不允许加分号
+    'semi': 'off',
+    // 将定义未使用变量的提示改为警告
+    'no-unused-vars': 'warn',
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await
