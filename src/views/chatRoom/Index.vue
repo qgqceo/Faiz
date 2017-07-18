@@ -38,6 +38,7 @@
                         </li>
                     </ul>
                 </div>
+                <!-- <div class="origami"></div> -->
                 <div class="dialog-box">
                     <message></message>
                     <input-box></input-box>
@@ -171,9 +172,19 @@ div {
     }
 }
 
+.origami {
+    width: 40px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    left: 250px;
+    top: 0;
+}
+
 .dialog-box {
     display: flex;
     flex-direction: column;
+    box-shadow: 8px 8px 30px rgba(50, 50, 50, 0.5);
 }
 </style>
 
