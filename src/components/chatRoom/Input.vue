@@ -2,14 +2,21 @@
     <div class="input">
         <div class="input-box">
             <input placeholder="Type your message here..." />
-            <button>SEND</button>
+            <button @click="clickButton(123)">SEND</button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'input'
+    name: 'input',
+    methods: {
+        clickButton: function (val) {
+            console.log('聊天');
+            // $socket is socket.io-client instance
+            this.$socket.emit('chat', val);
+        }
+    }
 }
 </script>
 
