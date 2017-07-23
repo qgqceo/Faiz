@@ -21,11 +21,11 @@
             <div class="input-area">
                 <div class="input-box">
                     <img src="../../assets/login/login_input_email.png" alt="email_image" />
-                    <input type="text" placeholder="Email" />
+                    <input v-model="email" type="text" placeholder="Email" />
                 </div>
                 <div class="input-box">
                     <img src="../../assets/login/login_input_password.png" alt="password_image" />
-                    <input type="text" placeholder="Password" v-on:focus="owlActive" v-on:blur="owlActive" />
+                    <input v-model="password" type="text" placeholder="Password" v-on:focus="owlActive" v-on:blur="owlActive" />
                 </div>
             </div>
             <!-- 按钮事件区域 -->
@@ -41,11 +41,14 @@
 <script>
 // sweet-modal-vue, vodal
 import router from '../../router';
+import store from '../../store';
 export default {
     name: 'login',
     data () {
         return {
-            isActive: false
+            isActive: false,
+            email: '',
+            password: ''
         }
     },
     methods: {
@@ -55,6 +58,8 @@ export default {
         },
         // 登录操作
         doLogin: function () {
+            // TODO: 请求接口获取登录信息
+            // TODO: 使用 vuex，存储用户 id，name, email
             router.push({ name: 'chatRoom' });
         }
     }
