@@ -41,7 +41,6 @@
 <script>
 // sweet-modal-vue, vodal
 import router from '../../router';
-import store from '../../store';
 export default {
     name: 'login',
     data () {
@@ -60,7 +59,14 @@ export default {
         doLogin: function () {
             // TODO: 请求接口获取登录信息
             // TODO: 使用 vuex，存储用户 id，name, email
-            router.push({ name: 'chatRoom' });
+            this.$store.dispatch('login', {email: this.$data.email, password: this.$data.password})
+                .then(res => {
+                    if (res.success === true) {
+                        router.push({ name: 'chatRoom' });
+                    } else {
+                        alert('登录失败' + res.message);
+                    }
+                });
         }
     }
 }

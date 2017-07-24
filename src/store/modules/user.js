@@ -1,3 +1,5 @@
+import { loginByEmail } from '../../api/User';
+
 const state = {
     user: {
         email: '',
@@ -29,7 +31,21 @@ const actions = {
     },
     // 登录
     login: ({ commit }, user) => {
-        commit('LOGIN', user);
+        return new Promise((resolve, reject) => {
+            loginByEmail(user.email, user.password)
+            .then(res => {
+                const data = {
+                    ...res.data,
+                    email: user.email
+                };
+                if (data.success === true) {
+                    commit('LOGIN', data);
+                } else {
+                    console.log(data.message);
+                }
+                resolve(data);
+            });
+        });
     }
 };
 
