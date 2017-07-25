@@ -35,25 +35,37 @@
                 <button @click="doLogin">Login</button>
             </div>
         </div>
+        <sweet-modal ref="modal" icon="error" hide-close-button blocking overlay-theme="light" modal-theme="light">
+            {{alertMessage}}
+            <!-- <sweet-button slot="button" color="red" v-on:click="closeExample('darkWithBlockingError')">Press this Button</sweet-button> -->
+            <button class="sweet-button bg-blue color-white" slot="button" @click="closeModal">OK</button>
+        </sweet-modal>
     </div>
 </template>
 
 <script>
 // sweet-modal-vue, vodal
 import router from '../../router';
+import { SweetModal, SweetButton } from 'sweet-modal-vue'
 export default {
     name: 'login',
     data () {
         return {
             isActive: false,
             email: '',
-            password: ''
+            password: '',
+            alertMessage: ''
         }
     },
+    components: { SweetModal, SweetButton },
     methods: {
         // 🦉动画
         owlActive: function () {
             this.$data.isActive = !this.$data.isActive;
+        },
+        // 关闭modal
+        closeModal: function () {
+            this.$refs.modal.close();
         },
         // 登录操作
         doLogin: function () {
@@ -64,7 +76,8 @@ export default {
                     if (res.success === true) {
                         router.push({ name: 'chatRoom' });
                     } else {
-                        alert('登录失败' + res.message);
+                        this.$data.alertMessage = res.message;
+                        this.$refs.modal.open();
                     }
                 });
         }
@@ -73,6 +86,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../styles/base.scss';
 .login-container {
     width: 100%;
     height: 100%;
