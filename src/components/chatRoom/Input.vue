@@ -1,20 +1,30 @@
 <template>
     <div class="input">
         <div class="input-box">
-            <input placeholder="Type your message here..." />
-            <button @click="clickButton(123)">SEND</button>
+            <input v-model="val" placeholder="Type your message here..." />
+            <button @click="clickButton()">SEND</button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
+    data () {
+        return {
+            val: ''
+        };
+    },
     name: 'input',
     methods: {
-        clickButton: function (val) {
-            console.log('聊天');
+        clickButton: function () {
+            let nowTime = new Date();
+            let message = {
+                ...this.$store.state.user,
+                msg: this.$data.val,
+                time: `${nowTime.getHours()}:${nowTime.getMinutes()}`
+            };
             // $socket is socket.io-client instance
-            this.$socket.emit('chat', val);
+            this.$socket.emit('chat', message);
         }
     }
 }

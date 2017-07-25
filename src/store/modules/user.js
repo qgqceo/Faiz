@@ -1,11 +1,9 @@
 import { loginByEmail } from '../../api/User';
 
 const state = {
-    user: {
-        email: '',
-        name: '',
-        id: ''
-    }
+    email: window.localStorage.getItem('email'),
+    name: window.localStorage.getItem('name'),
+    id: window.localStorage.getItem('id')
 };
 
 const mutations = {
@@ -49,8 +47,15 @@ const actions = {
     }
 };
 
+const getters = {
+    getUser (state) {
+        return state;
+    }
+};
+
 export default {
     state,
     mutations,
-    actions
+    actions,
+    getters
 };
