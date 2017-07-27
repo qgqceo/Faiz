@@ -19,3 +19,20 @@
 .color-white {
     color: #fff;
 }
+// flex 相关
+.flex {
+    display: flex;
+}
+.flex-row {
+    flex-direction: row;
+}
+.center {
+    align-items: center;
+    justify-content: center;
+}
+.ali-center {
+    align-items: center;
+}
+.jus-center {
+    justify-content: center;
+}
