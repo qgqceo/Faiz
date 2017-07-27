@@ -46,7 +46,7 @@
 <script>
 // sweet-modal-vue, vodal
 import router from '../../router';
-import { SweetModal, SweetButton } from 'sweet-modal-vue'
+import { SweetModal, SweetButton } from 'sweet-modal-vue';
 export default {
     name: 'login',
     data () {

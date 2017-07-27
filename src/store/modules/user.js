@@ -1,4 +1,4 @@
-import { loginByEmail } from '../../api/User';
+import { loginByEmail, signupByEmail } from '../../api/User';
 
 const state = {
     email: window.localStorage.getItem('email'),
@@ -9,8 +9,9 @@ const state = {
 const mutations = {
     // 注册
     SIGN_IN: (state, user) => {
-        window.localStorage.setItem('user_mobile', JSON.stringify(user.mobile));
-        window.localStorage.setItem('user_name', JSON.stringify(user.name));
+        window.localStorage.setItem('email', JSON.stringify(user.mobile));
+        window.localStorage.setItem('name', JSON.stringify(user.name));
+        window.localStorage.setItem('id', JSON.stringify(user.id));
         state.user = Object.assign({}, user);
     },
     // 登录
@@ -24,8 +25,23 @@ const mutations = {
 
 const actions = {
     // 注册
-    signin: ({ commit }, user) => {
-        commit('SIGN_IN', user);
+    signup: ({ commit }, user) => {
+        return new Promise((resolve, reject) => {
+            signupByEmail(user.name, user.email, user.password)
+            .then(res => {
+                const data = {
+                    ...res.data,
+                    name: user.name,
+                    email: user.email
+                };
+                if (data.success === true) {
+                    commit('SIGN_IN', data);
+                } else {
+                    console.log(data.message);
+                }
+                resolve(data);
+            });
+        });
     },
     // 登录
     login: ({ commit }, user) => {

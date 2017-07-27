@@ -19,20 +19,45 @@
                         <input v-model="password" type="text" placeholder="Password" />
                     </div>
                 </div>
-                <button class="bg-blue">Sign Up</button>
+                <button class="bg-blue" @click="doSignup">Sign Up</button>
             </div>
         </div>
+        <sweet-modal ref="modal" icon="error" hide-close-button blocking overlay-theme="light" modal-theme="light">
+            {{alertMessage}}
+            <button class="sweet-button bg-blue color-white" slot="button" @click="closeModal">OK</button>
+        </sweet-modal>
     </div>
 </template>
 
 <script>
+import router from '../../router';
+import { SweetModal, SweetButton } from 'sweet-modal-vue';
 export default {
     data () {
         return {
             name: '',
             email: '',
-            password: ''
+            password: '',
+            alertMessage: ''
         };
+    },
+    components: { SweetModal, SweetButton },
+    methods: {
+        // 关闭modal
+        closeModal: function () {
+            this.$refs.modal.close();
+        },
+        doSignup () {
+            this.$store.dispatch('signup', { name: this.$data.name, email: this.$data.email, password: this.$data.password })
+                .then(res => {
+                    if (res.success === true) {
+                        router.push({ name: 'chatRoom' });
+                    } else {
+                        this.$data.alertMessage = res.message;
+                        this.$refs.modal.open();
+                    }
+                });
+        }
     }
 }
 </script>
@@ -55,7 +80,7 @@ export default {
     height: 300px;
     padding: 30px 30px 0 30px;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: rgba( 255, 255, 255, 0.9);
     h1 {
         text-align: center;
         color: #666;

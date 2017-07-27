@@ -14,3 +14,17 @@ export function loginByEmail (email, password) {
         data
     });
 };
+
+// 注册
+export function signupByEmail (name, email, password) {
+    const data = {
+        name,
+        email,
+        password
+    };
+    return fetch({
+        url: Api.signup,
+        method: 'post',
+        data
+    });
+};
