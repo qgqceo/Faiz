@@ -31,7 +31,7 @@
             <!-- 按钮事件区域 -->
             <div class="btn-area">
                 <a>Forgot password?</a>
-                <a>Sign Up</a>
+                <router-link to="/signup">Sign Up</router-link>
                 <button @click="doLogin">Login</button>
             </div>
         </div>
