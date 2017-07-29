@@ -21,47 +21,72 @@
             <div class="input-area">
                 <div class="input-box">
                     <img src="../../assets/login/login_input_email.png" alt="email_image" />
-                    <input type="text" placeholder="Email" />
+                    <input v-model="email" type="text" placeholder="Email" />
                 </div>
                 <div class="input-box">
                     <img src="../../assets/login/login_input_password.png" alt="password_image" />
-                    <input type="text" placeholder="Password" v-on:focus="owlActive" v-on:blur="owlActive" />
+                    <input v-model="password" type="text" placeholder="Password" v-on:focus="owlActive" v-on:blur="owlActive" />
                 </div>
             </div>
             <!-- 按钮事件区域 -->
             <div class="btn-area">
                 <a>Forgot password?</a>
-                <a>Sign Up</a>
+                <router-link to="/signup">Sign Up</router-link>
                 <button @click="doLogin">Login</button>
             </div>
         </div>
+        <sweet-modal ref="modal" icon="error" hide-close-button blocking overlay-theme="light" modal-theme="light">
+            {{alertMessage}}
+            <!-- <sweet-button slot="button" color="red" v-on:click="closeExample('darkWithBlockingError')">Press this Button</sweet-button> -->
+            <button class="sweet-button bg-blue color-white" slot="button" @click="closeModal">OK</button>
+        </sweet-modal>
     </div>
 </template>
 
 <script>
 // sweet-modal-vue, vodal
 import router from '../../router';
+import { SweetModal, SweetButton } from 'sweet-modal-vue';
 export default {
     name: 'login',
     data () {
         return {
-            isActive: false
+            isActive: false,
+            email: '',
+            password: '',
+            alertMessage: ''
         }
     },
+    components: { SweetModal, SweetButton },
     methods: {
         // 🦉动画
         owlActive: function () {
             this.$data.isActive = !this.$data.isActive;
         },
+        // 关闭modal
+        closeModal: function () {
+            this.$refs.modal.close();
+        },
         // 登录操作
         doLogin: function () {
-            router.push({ name: 'chatRoom' });
+            // TODO: 请求接口获取登录信息
+            // TODO: 使用 vuex，存储用户 id，name, email
+            this.$store.dispatch('login', {email: this.$data.email, password: this.$data.password})
+                .then(res => {
+                    if (res.success === true) {
+                        router.push({ name: 'chatRoom' });
+                    } else {
+                        this.$data.alertMessage = res.message;
+                        this.$refs.modal.open();
+                    }
+                });
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../../styles/base.scss';
 .login-container {
     width: 100%;
     height: 100%;

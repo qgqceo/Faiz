@@ -2,8 +2,8 @@
     <!-- 消息框 -->
     <div class="message">
         <ul>
-            <li v-for="(item, index) in list" v-bind:key="index" :class="['message-item', {'me': item.user_id === 0}]">
-                <img class="avatar" :src="item.img">
+            <li v-for="(item, index) in list" v-bind:key="index" v-bind:class="{'me': item.id === id}">
+                <img class="avatar" :src="item.id === id ? user2 : user1">
                 <p>{{item.msg}}</p>
                 <span>{{item.time}}</span>
             </li>
@@ -18,17 +18,21 @@ export default {
     name: 'message',
     data () {
         return {
-            list: [{
-                user_id: 1,
-                img: user1,
-                msg: 'Hello Hayden...',
-                time: '09:00'
-            }, {
-                user_id: 0,
-                img: user2,
-                msg: 'I\'m Hayden',
-                time: '09:03'
-            }]
+            user1: user1,
+            user2: user2,
+            id: this.$store.state.user.id,
+            list: []
+        }
+    },
+    computed: {
+        initId: function () {
+            return parseInt(this.$store.state.user.id);
+        }
+    },
+    created: function () {
+        this.$options.sockets.chat = (data) => {
+            console.log('组件监听', data);
+            this.$data.list.push(data);
         }
     }
 }
@@ -46,6 +50,7 @@ ul {
 li {
     display: flex;
     flex: 1;
+    margin-top: 4px;
 }
 .avatar {
     width: 38px;

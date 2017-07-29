@@ -7,3 +7,32 @@
         vertical-align: middle;
     }
 }
+.sweet-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+}
+.bg-blue {
+    background-color: #1B69A1;
+}
+.color-white {
+    color: #fff;
+}
+// flex 相关
+.flex {
+    display: flex;
+}
+.flex-row {
+    flex-direction: row;
+}
+.center {
+    align-items: center;
+    justify-content: center;
+}
+.ali-center {
+    align-items: center;
+}
+.jus-center {
+    justify-content: center;
+}
