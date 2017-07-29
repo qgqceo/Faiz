@@ -19,9 +19,30 @@ new Vue({
     store,
     template: '<App/>',
     components: { App },
+    watch: {
+        '$router': 'checkLogin'
+    },
     sockets: {
         connect: function () {
             console.log('socket connected');
         }
+    },
+    created () {
+        // 打开页面的时候检测登录状态
+        this.checkLogin();
+    },
+    methods: {
+        checkLogin: function () {
+            // 检测本地是否存在 id cookie
+            if (this.getCookie('id')) {
+                this.$router.push('/');
+            } else {
+                this.$router.push('/login');
+            }
+        },
+        getCookie: function (name) {
+            return window.localStorage.getItem(name);
+        }
     }
 });
+// TODO:监测路由变化，用户打开页面时判断登录状态

@@ -21,9 +21,7 @@ export default {
             user1: user1,
             user2: user2,
             id: this.$store.state.user.id,
-            list: [{
-                email: 'brooklyn1984@qq.com', name: 'Hayden', id: '1', msg: 'nihao', time: '23:51'
-            }]
+            list: []
         }
     },
     computed: {
