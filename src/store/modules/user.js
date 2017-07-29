@@ -1,15 +1,17 @@
 import { loginByEmail, signupByEmail } from '../../api/User';
 
 const state = {
-    email: window.localStorage.getItem('email'),
-    name: window.localStorage.getItem('name'),
-    id: window.localStorage.getItem('id')
+    user: {
+        email: JSON.parse(window.localStorage.getItem('email')),
+        name: JSON.parse(window.localStorage.getItem('name')),
+        id: JSON.parse(window.localStorage.getItem('id'))
+    }
 };
 
 const mutations = {
     // 注册
     SIGN_IN: (state, user) => {
-        window.localStorage.setItem('email', JSON.stringify(user.mobile));
+        window.localStorage.setItem('email', JSON.stringify(user.email));
         window.localStorage.setItem('name', JSON.stringify(user.name));
         window.localStorage.setItem('id', JSON.stringify(user.id));
         state.user = Object.assign({}, user);

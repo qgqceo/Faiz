@@ -13,14 +13,14 @@
 
 <script>
 import user1 from '../../assets/chat_room/user1.jpg';
-import user2 from '../../assets/chat_room/user2.jpg';
+// import user2 from '../../assets/chat_room/user2.jpg';
 export default {
     name: 'message',
     data () {
         return {
             user1: user1,
-            user2: user2,
-            id: this.$store.state.user.id,
+            user2: user1,
+            id: this.$store.state.user.user.id,
             list: []
         }
     },
@@ -32,7 +32,12 @@ export default {
     created: function () {
         this.$options.sockets.chat = (data) => {
             console.log('组件监听', data);
-            this.$data.list.push(data);
+            const tmpData = {
+                ...data.user,
+                msg: data.msg,
+                time: data.time
+            }
+            this.$data.list.push(tmpData);
         }
     }
 }

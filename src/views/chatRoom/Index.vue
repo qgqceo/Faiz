@@ -11,8 +11,8 @@
                     <div class="user-message ver-center">
                         <img class="avator" src="../../assets/chat_room/user1.jpg"/>
                         <div class="message-text">
-                            <h3>Hayden</h3>
-                            <p>brooklyn1984@qq.com</p>
+                            <h3>{{name}}</h3>
+                            <p>{{email}}</p>
                         </div>
                     </div>
                     <!-- 总消息 -->
@@ -55,7 +55,8 @@ export default {
     name: 'chatRoom',
     data () {
         return {
-            isActive: true
+            name: this.$store.state.user.user.name,
+            email: this.$store.state.user.user.email
         }
     },
     components: {
