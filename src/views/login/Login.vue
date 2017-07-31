@@ -47,6 +47,7 @@
 // sweet-modal-vue, vodal
 import router from '../../router';
 import { SweetModal, SweetButton } from 'sweet-modal-vue';
+import { verifyEmail, verifyPassword } from '../../utils/regexp';
 export default {
     name: 'login',
     data () {
@@ -71,6 +72,11 @@ export default {
         doLogin: function () {
             // TODO: 请求接口获取登录信息
             // TODO: 使用 vuex，存储用户 id，name, email
+            if (!verifyEmail(this.$data.email) || !verifyPassword(this.$data.password)) {
+                this.$data.alertMessage = '邮箱或密码格式有误';
+                this.$refs.modal.open();
+                return;
+            }
             this.$store.dispatch('login', {email: this.$data.email, password: this.$data.password})
                 .then(res => {
                     if (res.success === true) {

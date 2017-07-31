@@ -14,9 +14,14 @@ export default {
             val: ''
         };
     },
+    props: ['alert'],
     name: 'input',
     methods: {
         clickButton: function () {
+            if (this.$data.val.length <= 0) {
+                this.alert('消息内容不能为空');
+                return;
+            }
             let nowTime = new Date();
             let message = {
                 ...this.$store.state.user,
