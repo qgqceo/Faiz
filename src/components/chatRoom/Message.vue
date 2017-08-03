@@ -1,6 +1,6 @@
 <template>
     <!-- 消息框 -->
-    <div class="message">
+    <div class="message" id="msgWrapper">
         <ul>
             <li v-for="(item, index) in list" v-bind:key="index" v-bind:class="{'me': item.id === id}">
                 <img class="avatar" :src="item.id === id ? user2 : user1">
@@ -29,6 +29,14 @@ export default {
             return parseInt(this.$store.state.user.id);
         }
     },
+    watch: {
+        list () {
+            const wrapper = document.getElementById('msgWrapper');
+            this.$nextTick(() => {
+                wrapper.scrollTop = wrapper.scrollHeight;
+            });
+        }
+    },
     created: function () {
         this.$options.sockets.chat = (data) => {
             console.log('组件监听', data);
@@ -47,7 +55,8 @@ export default {
 .message {
     display: flex;
     flex: 1;
-    padding: 30px 20px;
+    padding: 30px 20px 0 20px;
+    overflow: auto;
 }
 ul {
     width: 100%;
