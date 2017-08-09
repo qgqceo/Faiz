@@ -32,6 +32,7 @@
 <script>
 import router from '../../router';
 import { SweetModal, SweetButton } from 'sweet-modal-vue';
+import { verifyEmail, verifyPassword, verifyName } from '../../utils/regexp';
 export default {
     data () {
         return {
@@ -48,6 +49,11 @@ export default {
             this.$refs.modal.close();
         },
         doSignup () {
+            if (!verifyEmail(this.$data.email) || !verifyPassword(this.$data.password) || !verifyName(this.$data.name)) {
+                this.$data.alertMessage = '输入信息格式有误';
+                this.$refs.modal.open();
+                return;
+            }
             this.$store.dispatch('signup', { name: this.$data.name, email: this.$data.email, password: this.$data.password })
                 .then(res => {
                     if (res.success === true) {

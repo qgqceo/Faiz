@@ -41,27 +41,46 @@
                 <!-- <div class="origami"></div> -->
                 <div class="dialog-box">
                     <message></message>
-                    <input-box></input-box>
+                    <input-box :alert="showModal"></input-box>
                 </div>
             </div>
         </div>
+        <sweet-modal ref="modal" icon="error" hide-close-button blocking overlay-theme="light" modal-theme="light">
+            {{alertMessage}}
+            <!-- <sweet-button slot="button" color="red" v-on:click="closeExample('darkWithBlockingError')">Press this Button</sweet-button> -->
+            <button class="sweet-button bg-blue color-white" slot="button" @click="closeModal">OK</button>
+        </sweet-modal>
     </div>
 </template>
 
 <script>
 import message from '../../components/chatRoom/Message';
 import inputBox from '../../components/chatRoom/Input';
+import { SweetModal, SweetButton } from 'sweet-modal-vue';
 export default {
     name: 'chatRoom',
     data () {
         return {
             name: this.$store.state.user.user.name,
-            email: this.$store.state.user.user.email
+            email: this.$store.state.user.user.email,
+            alertMessage: ''
         }
     },
     components: {
         message,
-        inputBox
+        inputBox,
+        SweetModal,
+        SweetButton
+    },
+    methods: {
+        // 关闭modal
+        closeModal: function () {
+            this.$refs.modal.close();
+        },
+        showModal: function (msg) {
+            this.$data.alertMessage = msg;
+            this.$refs.modal.open();
+        }
     }
 }
 </script>
